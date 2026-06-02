@@ -85,7 +85,7 @@ const mainNavItems: NavItem[] = [
         },
         {
             title:'Ledger',
-            href:dashboard(),
+            href:'/ledger',
         },
         {
             title:'Taxes',
