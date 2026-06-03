@@ -73,7 +73,7 @@ const mainNavItems: NavItem[] = [
     children:[
         {
             title:'Expense list',
-            href:'/expenses',
+            href:'/expense/list',
         },
         {
             title:'Expense Category',
@@ -87,18 +87,18 @@ const mainNavItems: NavItem[] = [
             title:'Ledger',
             href:'/ledger',
         },
-        {
-            title:'Taxes',
-            href:dashboard(),
-        },
-        {
-            title:'Fees Config',
-            href:dashboard(),
-        },
-        {
-            title:'Payment Methods',
-            href:dashboard(),
-        },
+        // {
+        //     title:'Taxes',
+        //     href:dashboard(),
+        // },
+        // {
+        //     title:'Fees Config',
+        //     href:dashboard(),
+        // },
+        // {
+        //     title:'Payment Methods',
+        //     href:dashboard(),
+        // },
         
     ]
   
