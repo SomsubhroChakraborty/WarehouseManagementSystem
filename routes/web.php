@@ -5,6 +5,7 @@ use App\Http\Controllers\ExpenseCategoryController;
 use App\Http\Controllers\ExpensesController;
 use App\Http\Controllers\BankController;
 use App\Http\Controllers\LedgerController;
+use App\Http\Controllers\BrandController;
 
 Route::inertia('/', 'welcome')->name('home');
 
@@ -27,10 +28,15 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::put('/bank/{id}', [BankController::class, 'update'])->name('bank.update');
     Route::delete('/bank/{id}', [BankController::class, 'destroy'])->name('bank.destroy');
 
-   Route::get('/ledger', [LedgerController::class, 'index'])->name('ledger.index');
+    Route::get('/ledger', [LedgerController::class, 'index'])->name('ledger.index');
     Route::post('/ledger', [LedgerController::class, 'store'])->name('ledger.store');
     Route::put('/ledger/{ledger}', [LedgerController::class, 'update'])->name('ledger.update');
     Route::delete('/ledger/{ledger}', [LedgerController::class, 'destroy'])->name('ledger.destroy');
+
+    Route::get('/brand',[BrandController::class, 'index'])->name('brand.index');
+    Route::post('/brand',[BrandController::class, 'store'])->name('brand.store');
+    Route::put('/brand/{brand}',[BrandController::class, 'update'])->name('brand.update');
+    Route::delete('/brand/{brand}',[BrandController::class, 'destroy'])->name('brand.delete');
 });
 
 require __DIR__.'/settings.php';

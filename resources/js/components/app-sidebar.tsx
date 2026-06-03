@@ -34,7 +34,7 @@ const mainNavItems: NavItem[] = [
      children:[
         {
             title:'Brand',
-            href:dashboard(),
+            href:'/brand',
         },
         {
             title:'Category',
