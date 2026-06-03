@@ -154,6 +154,7 @@ export default function Ledger({
 
                                     {banks.map((bank) => (
                                         <option
+                                        className='text-black'
                                             key={bank.id}
                                             value={bank.id}
                                         >
@@ -170,25 +171,7 @@ export default function Ledger({
                             </div>
 
                             {/* Aligned Read-only Inputs */}
-                            <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
-                                <Input
-                                    value={data.bank_name}
-                                    readOnly
-                                    placeholder="Bank Name"
-                                />
-
-                                <Input
-                                    value={data.branch}
-                                    readOnly
-                                    placeholder="Branch"
-                                />
-
-                                <Input
-                                    value={data.account_number}
-                                    readOnly
-                                    placeholder="Account Number"
-                                />
-                            </div>
+                         
 
                             <div>
                                 <select
@@ -206,11 +189,11 @@ export default function Ledger({
                                         Select Type
                                     </option>
 
-                                    <option value="credit">
+                                    <option value="credit" className='text-black'>
                                         Credit
                                     </option>
 
-                                    <option value="debit">
+                                    <option value="debit" className='text-black'>
                                         Debit
                                     </option>
                                 </select>
