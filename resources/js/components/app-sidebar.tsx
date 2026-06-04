@@ -42,7 +42,7 @@ const mainNavItems: NavItem[] = [
         },
         {
             title:'Product',
-            href:dashboard(),
+            href:'/product',
         },
         {
             title:'Varient',

@@ -274,7 +274,7 @@ export default function Brand({ brands = [], search = '' }) {
                             <tr>
                                 <td
                                     colSpan={3}
-                                    className="py-6 text-center"
+                                    className="py-6 text-center text-black"
                                 >
                                     No brands found.
                                 </td>

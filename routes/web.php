@@ -7,6 +7,7 @@ use App\Http\Controllers\BankController;
 use App\Http\Controllers\LedgerController;
 use App\Http\Controllers\BrandController;
 use App\Http\Controllers\ProductCategoryController;
+use App\Http\Controllers\ProductController;
 
 Route::inertia('/', 'welcome')->name('home');
 
@@ -43,6 +44,11 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::post('/productCategory',[ProductCategoryController::class, 'store'])->name('productcategory.store');
     Route::put('/productCategory/{productCategory}',[ProductCategoryController::class, 'update'])->name('productcategory.update');
     Route::delete('/productCategory/{productCategory}',[ProductCategoryController::class, 'destroy'])->name('productcategory.delete');
+
+    Route::get('/product',[ProductController::class, 'index'])->name('product.index');
+    Route::post('/product',[ProductController::class, 'store'])->name('product.store');
+    Route::put('/product/{product}',[ProductController::class, 'update'])->name('product.update');
+    Route::delete('/product/{product}',[ProductController::class, 'destroy'])->name('product.delete');
 });
 
 require __DIR__.'/settings.php';
