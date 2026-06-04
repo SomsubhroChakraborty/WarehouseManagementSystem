@@ -38,7 +38,7 @@ const mainNavItems: NavItem[] = [
         },
         {
             title:'Category',
-            href:dashboard(),
+            href:'/productCategory',
         },
         {
             title:'Product',
