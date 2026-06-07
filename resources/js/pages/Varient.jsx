@@ -1,4 +1,4 @@
- import { useState } from 'react';
+import { useState } from 'react';
 import { useForm } from '@inertiajs/react';
 
 import { Button } from '@/components/ui/button';
@@ -14,10 +14,9 @@ import {
     DialogTrigger,
 } from '@/components/ui/dialog';
 
-export default function Product({
-    products = { data: [] },
-    brands = [],
-    categories = [],
+export default function Varient({
+    varients = { data: [] },
+    products = [],
     search = '',
 }) {
     const [open, setOpen] = useState(false);
@@ -36,8 +35,7 @@ export default function Product({
     } = useForm({
         id: '',
         name: '',
-        brand_id: '',
-        product_category_id: '',
+        product_id: '',
         search: search ?? '',
     });
 
@@ -45,41 +43,29 @@ export default function Product({
         e.preventDefault();
 
         if (data.id) {
-            put(`/product/${data.id}`, {
+            put(`/varient/${data.id}`, {
                 preserveScroll: true,
                 onSuccess: () => {
-                    reset(
-                        'id',
-                        'name',
-                        'brand_id',
-                        'product_category_id'
-                    );
+                    reset('id', 'name', 'product_id');
                     setOpen(false);
                 },
             });
         } else {
-            post('/product', {
+            post('/varient', {
                 preserveScroll: true,
                 onSuccess: () => {
-                    reset(
-                        'id',
-                        'name',
-                        'brand_id',
-                        'product_category_id'
-                    );
+                    reset('id', 'name', 'product_id');
                     setOpen(false);
                 },
             });
         }
     };
 
-    const handleEdit = (product) => {
+    const handleEdit = (varient) => {
         setData({
-            id: product.id,
-            name: product.name ?? '',
-            brand_id: product.brand_id ?? '',
-            product_category_id:
-                product.product_category_id ?? '',
+            id: varient.id,
+            name: varient.name ?? '',
+            product_id: varient.product_id ?? '',
             search: data.search,
         });
 
@@ -87,7 +73,7 @@ export default function Product({
     };
 
     const handleDelete = () => {
-        destroy(`/product/${data.id}`, {
+        destroy(`/varient/${data.id}`, {
             preserveScroll: true,
             onSuccess: () => {
                 setDeleteOpen(false);
@@ -98,7 +84,7 @@ export default function Product({
 
     const handleSearch = () => {
         get(
-            '/product',
+            '/varient',
             {
                 search: data.search,
             },
@@ -113,7 +99,7 @@ export default function Product({
         setData('search', '');
 
         get(
-            '/product',
+            '/varient',
             {},
             {
                 preserveScroll: true,
@@ -125,19 +111,16 @@ export default function Product({
     return (
         <div className="space-y-6 p-6">
             <div className="text-xl font-bold text-white">
-                Product List
+                Varient List
             </div>
 
             <div className="flex items-end justify-between">
                 <div className="flex items-end gap-2">
                     <Input
-                        placeholder="Search product..."
+                        placeholder="Search varient..."
                         value={data.search ?? ''}
                         onChange={(e) =>
-                            setData(
-                                'search',
-                                e.target.value
-                            )
+                            setData('search', e.target.value)
                         }
                     />
 
@@ -162,12 +145,11 @@ export default function Product({
                                 reset(
                                     'id',
                                     'name',
-                                    'brand_id',
-                                    'product_category_id'
+                                    'product_id'
                                 )
                             }
                         >
-                            Add Product
+                            Add Varient
                         </Button>
                     </DialogTrigger>
 
@@ -175,12 +157,12 @@ export default function Product({
                         <DialogHeader>
                             <DialogTitle>
                                 {data.id
-                                    ? 'Edit Product'
-                                    : 'Create Product'}
+                                    ? 'Edit Varient'
+                                    : 'Create Varient'}
                             </DialogTitle>
 
                             <DialogDescription>
-                                Enter product details.
+                                Enter varient details.
                             </DialogDescription>
                         </DialogHeader>
 
@@ -189,7 +171,7 @@ export default function Product({
                             className="space-y-4"
                         >
                             <Input
-                                placeholder="Product Name"
+                                placeholder="Varient Name"
                                 value={data.name ?? ''}
                                 onChange={(e) =>
                                     setData(
@@ -206,10 +188,10 @@ export default function Product({
                             )}
 
                             <select
-                                value={data.brand_id ?? ''}
+                                value={data.product_id ?? ''}
                                 onChange={(e) =>
                                     setData(
-                                        'brand_id',
+                                        'product_id',
                                         e.target.value
                                     )
                                 }
@@ -219,70 +201,23 @@ export default function Product({
                                     value=""
                                     className="text-black"
                                 >
-                                    Select Brand
+                                    Select Product
                                 </option>
 
-                                {brands.map((brand) => (
+                                {products.map((product) => (
                                     <option
-                                        key={brand.id}
-                                        value={brand.id}
+                                        key={product.id}
+                                        value={product.id}
                                         className="text-black"
                                     >
-                                        {brand.name}
+                                        {product.name}
                                     </option>
                                 ))}
                             </select>
 
-                            {errors.brand_id && (
+                            {errors.product_id && (
                                 <p className="text-sm text-red-500">
-                                    {errors.brand_id}
-                                </p>
-                            )}
-
-                            <select
-                                value={
-                                    data.product_category_id ??
-                                    ''
-                                }
-                                onChange={(e) =>
-                                    setData(
-                                        'product_category_id',
-                                        e.target.value
-                                    )
-                                }
-                                className="w-full rounded-md border px-3 py-2"
-                            >
-                                <option
-                                    value=""
-                                    className="text-black"
-                                >
-                                    Select Category
-                                </option>
-
-                                {categories.map(
-                                    (category) => (
-                                        <option
-                                            key={
-                                                category.id
-                                            }
-                                            value={
-                                                category.id
-                                            }
-                                            className="text-black"
-                                        >
-                                            {
-                                                category.name
-                                            }
-                                        </option>
-                                    )
-                                )}
-                            </select>
-
-                            {errors.product_category_id && (
-                                <p className="text-sm text-red-500">
-                                    {
-                                        errors.product_category_id
-                                    }
+                                    {errors.product_id}
                                 </p>
                             )}
 
@@ -299,9 +234,7 @@ export default function Product({
 
                                 <Button
                                     type="submit"
-                                    disabled={
-                                        processing
-                                    }
+                                    disabled={processing}
                                 >
                                     Save
                                 </Button>
@@ -319,13 +252,10 @@ export default function Product({
                                 #
                             </th>
                             <th className="px-4 py-3">
-                                Product Name
+                                Varient Name
                             </th>
                             <th className="px-4 py-3">
-                                Brand
-                            </th>
-                            <th className="px-4 py-3">
-                                Category
+                                Product
                             </th>
                             <th className="px-4 py-3">
                                 Action
@@ -334,41 +264,33 @@ export default function Product({
                     </thead>
 
                     <tbody>
-                        {products?.data?.length >
-                        0 ? (
-                            products.data.map(
+                        {varients?.data?.length > 0 ? (
+                            varients.data.map(
                                 (
-                                    product,
+                                    varient,
                                     index
                                 ) => (
                                     <tr
                                         key={
-                                            product.id
+                                            varient.id
                                         }
                                         className="border-b"
                                     >
                                         <td className="px-4 py-3 text-center text-black">
-                                            {index +
-                                                1}
+                                            {index + 1}
                                         </td>
 
                                         <td className="px-4 py-3 text-center text-black">
                                             {
-                                                product.name
+                                                varient.name
                                             }
                                         </td>
 
                                         <td className="px-4 py-3 text-center text-black">
-                                            {product
-                                                .brand
+                                            {varient
+                                                .product
                                                 ?.name ||
                                                 '-'}
-                                        </td>
-
-                                        <td className="px-4 py-3 text-center text-black">
-                                            {product
-                                                .product_category?.name ||'-'}
-                                                {/* {console.log(product)} */}
                                         </td>
 
                                         <td className="px-4 py-3">
@@ -378,7 +300,7 @@ export default function Product({
                                                     variant="outline"
                                                     onClick={() =>
                                                         handleEdit(
-                                                            product
+                                                            varient
                                                         )
                                                     }
                                                 >
@@ -391,7 +313,7 @@ export default function Product({
                                                     onClick={() => {
                                                         setData(
                                                             'id',
-                                                            product.id
+                                                            varient.id
                                                         );
                                                         setDeleteOpen(
                                                             true
@@ -408,10 +330,10 @@ export default function Product({
                         ) : (
                             <tr>
                                 <td
-                                    colSpan="5"
+                                    colSpan="4"
                                     className="py-8 text-center text-gray-500 font-medium"
                                 >
-                                    No Products Found
+                                    No Varients Found
                                 </td>
                             </tr>
                         )}
@@ -426,7 +348,7 @@ export default function Product({
                 <DialogContent>
                     <DialogHeader>
                         <DialogTitle>
-                            Delete Product
+                            Delete Varient
                         </DialogTitle>
 
                         <DialogDescription>
@@ -439,7 +361,9 @@ export default function Product({
                         <Button
                             variant="outline"
                             onClick={() =>
-                                setDeleteOpen(false)
+                                setDeleteOpen(
+                                    false
+                                )
                             }
                         >
                             Cancel
@@ -447,7 +371,9 @@ export default function Product({
 
                         <Button
                             variant="destructive"
-                            onClick={handleDelete}
+                            onClick={
+                                handleDelete
+                            }
                         >
                             Delete
                         </Button>

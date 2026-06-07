@@ -10,24 +10,24 @@ use Inertia\Inertia;
 
 class ProductController extends Controller
 {
-    public function index(Request $request)
-    {
-        $search = $request->search;
+   public function index(Request $request)
+{
+    $search = $request->search;
 
-        $products = Product::with(['brand', 'productCategory'])
-            ->when($search, function ($query) use ($search) {
-                $query->where('name', 'like', "%{$search}%");
-            })
-            ->latest()
-            ->get();
+    $products = Product::with(['brand', 'product_category'])
+        ->when($search, function ($query) use ($search) {
+            $query->where('name', 'like', "%{$search}%");
+        })
+        ->latest()
+        ->paginate(10);
 
-       return Inertia::render('Product', [
-    'products' => Product::with(['brand', 'productCategory'])->paginate(10),
-    'brands' => Brand::all(),
-    'categories' => ProductCategory::all(),
-    'search' => $request->search,
-]);
-    }
+    return Inertia::render('Product', [
+        'products' => $products,
+        'brands' => Brand::all(),
+        'categories' => ProductCategory::all(),
+        'search' => $search,
+    ]);
+}
 
     public function store(Request $request)
     {

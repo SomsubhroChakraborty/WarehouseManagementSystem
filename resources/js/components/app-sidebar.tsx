@@ -46,7 +46,7 @@ const mainNavItems: NavItem[] = [
         },
         {
             title:'Varient',
-            href:dashboard(),
+            href:'/varient',
         },
         {
             title:'Units',

@@ -8,6 +8,7 @@ use App\Http\Controllers\LedgerController;
 use App\Http\Controllers\BrandController;
 use App\Http\Controllers\ProductCategoryController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\VarientController;
 
 Route::inertia('/', 'welcome')->name('home');
 
@@ -49,6 +50,11 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::post('/product',[ProductController::class, 'store'])->name('product.store');
     Route::put('/product/{product}',[ProductController::class, 'update'])->name('product.update');
     Route::delete('/product/{product}',[ProductController::class, 'destroy'])->name('product.delete');
+   
+    Route::get('/varient',[VarientController::class, 'index'])->name('varient.index');
+    Route::post('/varient',[VarientController::class, 'store'])->name('varient.store');
+    Route::put('/varient/{varient}',[VarientController::class, 'update'])->name('varient.update');
+    Route::delete('/varient/{varient}',[VarientController::class, 'destroy'])->name('varient.delete');
 });
 
 require __DIR__.'/settings.php';
