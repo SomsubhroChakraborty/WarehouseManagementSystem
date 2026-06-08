@@ -36,6 +36,14 @@ export default function Varient({
         id: '',
         name: '',
         product_id: '',
+        sku: '',
+        price: '',
+        sale_price: '',
+        stock: '',
+        size: '',
+        color: '',
+        weight: '',
+        barcode: '',
         search: search ?? '',
     });
 
@@ -46,7 +54,7 @@ export default function Varient({
             put(`/varient/${data.id}`, {
                 preserveScroll: true,
                 onSuccess: () => {
-                    reset('id', 'name', 'product_id');
+                    reset();
                     setOpen(false);
                 },
             });
@@ -54,7 +62,7 @@ export default function Varient({
             post('/varient', {
                 preserveScroll: true,
                 onSuccess: () => {
-                    reset('id', 'name', 'product_id');
+                    reset();
                     setOpen(false);
                 },
             });
@@ -66,6 +74,14 @@ export default function Varient({
             id: varient.id,
             name: varient.name ?? '',
             product_id: varient.product_id ?? '',
+            sku: varient.sku ?? '',
+            price: varient.price ?? '',
+            sale_price: varient.sale_price ?? '',
+            stock: varient.stock ?? '',
+            size: varient.size ?? '',
+            color: varient.color ?? '',
+            weight: varient.weight ?? '',
+            barcode: varient.barcode ?? '',
             search: data.search,
         });
 
@@ -86,9 +102,7 @@ export default function Varient({
         get(
             '/varient',
             {
-                search: data.search,
-            },
-            {
+                data: { search: data.search },
                 preserveScroll: true,
                 replace: true,
             }
@@ -100,8 +114,8 @@ export default function Varient({
 
         get(
             '/varient',
-            {},
             {
+                data: {},
                 preserveScroll: true,
                 replace: true,
             }
@@ -111,13 +125,13 @@ export default function Varient({
     return (
         <div className="space-y-6 p-6">
             <div className="text-xl font-bold text-white">
-                Varient List
+                Variant List
             </div>
 
             <div className="flex items-end justify-between">
                 <div className="flex items-end gap-2">
                     <Input
-                        placeholder="Search varient..."
+                        placeholder="Search variant..."
                         value={data.search ?? ''}
                         onChange={(e) =>
                             setData('search', e.target.value)
@@ -141,28 +155,22 @@ export default function Varient({
                 <Dialog open={open} onOpenChange={setOpen}>
                     <DialogTrigger asChild>
                         <Button
-                            onClick={() =>
-                                reset(
-                                    'id',
-                                    'name',
-                                    'product_id'
-                                )
-                            }
+                            onClick={() => reset()}
                         >
-                            Add Varient
+                            Add Variant
                         </Button>
                     </DialogTrigger>
 
-                    <DialogContent>
+                    <DialogContent className="max-h-[90vh] overflow-y-auto max-w-md">
                         <DialogHeader>
                             <DialogTitle>
                                 {data.id
-                                    ? 'Edit Varient'
-                                    : 'Create Varient'}
+                                    ? 'Edit Variant'
+                                    : 'Create Variant'}
                             </DialogTitle>
 
                             <DialogDescription>
-                                Enter varient details.
+                                Enter variant details.
                             </DialogDescription>
                         </DialogHeader>
 
@@ -170,64 +178,101 @@ export default function Varient({
                             onSubmit={handleSubmit}
                             className="space-y-4"
                         >
-                            <Input
-                                placeholder="Varient Name"
-                                value={data.name ?? ''}
-                                onChange={(e) =>
-                                    setData(
-                                        'name',
-                                        e.target.value
-                                    )
-                                }
-                            />
+                            <div>
+                                <Input
+                                    placeholder="Variant Name"
+                                    value={data.name ?? ''}
+                                    onChange={(e) => setData('name', e.target.value)}
+                                />
+                                {errors.name && (
+                                    <p className="text-sm text-red-500 mt-1">{errors.name}</p>
+                                )}
+                            </div>
 
-                            {errors.name && (
-                                <p className="text-sm text-red-500">
-                                    {errors.name}
-                                </p>
-                            )}
-
-                            <select
-                                value={data.product_id ?? ''}
-                                onChange={(e) =>
-                                    setData(
-                                        'product_id',
-                                        e.target.value
-                                    )
-                                }
-                                className="w-full rounded-md border px-3 py-2"
-                            >
-                                <option
-                                    value=""
-                                    className="text-black"
+                            <div>
+                                <select
+                                    value={data.product_id ?? ''}
+                                    onChange={(e) => setData('product_id', e.target.value)}
+                                    className="w-full rounded-md border px-3 py-2 bg-transparent text-white"
                                 >
-                                    Select Product
-                                </option>
-
-                                {products.map((product) => (
-                                    <option
-                                        key={product.id}
-                                        value={product.id}
-                                        className="text-black"
-                                    >
-                                        {product.name}
+                                    <option value="" className="text-black">
+                                        Select Product
                                     </option>
-                                ))}
-                            </select>
+                                    {products.map((product) => (
+                                        <option
+                                            key={product.id}
+                                            value={product.id}
+                                            className="text-black"
+                                        >
+                                            {product.name}
+                                        </option>
+                                    ))}
+                                </select>
+                                {errors.product_id && (
+                                    <p className="text-sm text-red-500 mt-1">{errors.product_id}</p>
+                                )}
+                            </div>
 
-                            {errors.product_id && (
-                                <p className="text-sm text-red-500">
-                                    {errors.product_id}
-                                </p>
-                            )}
+                            <div className="grid grid-cols-2 gap-4">
+                                <Input
+                                    placeholder="SKU"
+                                    value={data.sku ?? ''}
+                                    onChange={(e) => setData('sku', e.target.value)}
+                                />
+                                <Input
+                                    placeholder="Barcode"
+                                    value={data.barcode ?? ''}
+                                    onChange={(e) => setData('barcode', e.target.value)}
+                                />
+                            </div>
 
-                            <DialogFooter>
+                            <div className="grid grid-cols-2 gap-4">
+                                <Input
+                                    type="number"
+                                    placeholder="Price"
+                                    value={data.price ?? ''}
+                                    onChange={(e) => setData('price', e.target.value)}
+                                />
+                                <Input
+                                    type="number"
+                                    placeholder="Sale Price"
+                                    value={data.sale_price ?? ''}
+                                    onChange={(e) => setData('sale_price', e.target.value)}
+                                />
+                            </div>
+
+                            <div className="grid grid-cols-2 gap-4">
+                                <Input
+                                    type="number"
+                                    placeholder="Stock"
+                                    value={data.stock ?? ''}
+                                    onChange={(e) => setData('stock', e.target.value)}
+                                />
+                                <Input
+                                    placeholder="Size"
+                                    value={data.size ?? ''}
+                                    onChange={(e) => setData('size', e.target.value)}
+                                />
+                            </div>
+
+                            <div className="grid grid-cols-2 gap-4">
+                                <Input
+                                    placeholder="Color"
+                                    value={data.color ?? ''}
+                                    onChange={(e) => setData('color', e.target.value)}
+                                />
+                                <Input
+                                    placeholder="Weight"
+                                    value={data.weight ?? ''}
+                                    onChange={(e) => setData('weight', e.target.value)}
+                                />
+                            </div>
+
+                            <DialogFooter className="pt-4">
                                 <Button
                                     type="button"
                                     variant="outline"
-                                    onClick={() =>
-                                        setOpen(false)
-                                    }
+                                    onClick={() => setOpen(false)}
                                 >
                                     Cancel
                                 </Button>
@@ -248,92 +293,63 @@ export default function Varient({
                 <table className="w-full">
                     <thead>
                         <tr className="bg-[#0F172B] text-white">
-                            <th className="px-4 py-3">
-                                #
-                            </th>
-                            <th className="px-4 py-3">
-                                Varient Name
-                            </th>
-                            <th className="px-4 py-3">
-                                Product
-                            </th>
-                            <th className="px-4 py-3">
-                                Action
-                            </th>
+                            <th className="px-4 py-3">#</th>
+                            <th className="px-4 py-3">Variant Name</th>
+                            <th className="px-4 py-3">Product</th>
+                            <th className="px-4 py-3">Action</th>
                         </tr>
                     </thead>
 
                     <tbody>
                         {varients?.data?.length > 0 ? (
-                            varients.data.map(
-                                (
-                                    varient,
-                                    index
-                                ) => (
-                                    <tr
-                                        key={
-                                            varient.id
-                                        }
-                                        className="border-b"
-                                    >
-                                        <td className="px-4 py-3 text-center text-black">
-                                            {index + 1}
-                                        </td>
+                            varients.data.map((varient, index) => (
+                                <tr
+                                    key={varient.id}
+                                    className="border-b"
+                                >
+                                    <td className="px-4 py-3 text-center text-black">
+                                        {index + 1}
+                                    </td>
 
-                                        <td className="px-4 py-3 text-center text-black">
-                                            {
-                                                varient.name
-                                            }
-                                        </td>
+                                    <td className="px-4 py-3 text-center text-black">
+                                        {varient.name}
+                                    </td>
 
-                                        <td className="px-4 py-3 text-center text-black">
-                                            {varient
-                                                .product
-                                                ?.name ||
-                                                '-'}
-                                        </td>
+                                    <td className="px-4 py-3 text-center text-black">
+                                        {varient.product?.name || '-'}
+                                    </td>
 
-                                        <td className="px-4 py-3">
-                                            <div className="flex justify-center gap-2">
-                                                <Button
-                                                    size="sm"
-                                                    variant="outline"
-                                                    onClick={() =>
-                                                        handleEdit(
-                                                            varient
-                                                        )
-                                                    }
-                                                >
-                                                    Edit
-                                                </Button>
+                                    <td className="px-4 py-3">
+                                        <div className="flex justify-center gap-2">
+                                            <Button
+                                                size="sm"
+                                                variant="outline"
+                                                onClick={() => handleEdit(varient)}
+                                            >
+                                                Edit
+                                            </Button>
 
-                                                <Button
-                                                    size="sm"
-                                                    variant="destructive"
-                                                    onClick={() => {
-                                                        setData(
-                                                            'id',
-                                                            varient.id
-                                                        );
-                                                        setDeleteOpen(
-                                                            true
-                                                        );
-                                                    }}
-                                                >
-                                                    Delete
-                                                </Button>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                )
-                            )
+                                            <Button
+                                                size="sm"
+                                                variant="destructive"
+                                                onClick={() => {
+                                                    setData('id', varient.id);
+                                                    setDeleteOpen(true);
+                                                }}
+                                            >
+                                                Delete
+                                            </Button>
+                                        </div>
+                                    </td>
+                                </tr>
+                            ))
                         ) : (
                             <tr>
                                 <td
                                     colSpan="4"
                                     className="py-8 text-center text-gray-500 font-medium"
                                 >
-                                    No Varients Found
+                                    No Variants Found
                                 </td>
                             </tr>
                         )}
@@ -348,32 +364,25 @@ export default function Varient({
                 <DialogContent>
                     <DialogHeader>
                         <DialogTitle>
-                            Delete Varient
+                            Delete Variant
                         </DialogTitle>
 
                         <DialogDescription>
-                            This action cannot be
-                            undone.
+                            This action cannot be undone.
                         </DialogDescription>
                     </DialogHeader>
 
                     <DialogFooter>
                         <Button
                             variant="outline"
-                            onClick={() =>
-                                setDeleteOpen(
-                                    false
-                                )
-                            }
+                            onClick={() => setDeleteOpen(false)}
                         >
                             Cancel
                         </Button>
 
                         <Button
                             variant="destructive"
-                            onClick={
-                                handleDelete
-                            }
+                            onClick={handleDelete}
                         >
                             Delete
                         </Button>

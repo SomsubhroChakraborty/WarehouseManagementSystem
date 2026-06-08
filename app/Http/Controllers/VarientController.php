@@ -44,12 +44,28 @@ class VarientController extends Controller
     {
         $request->validate([
             'name'=>'required',
-            'product_id'=>'required'
+            'product_id'=>'required',
+             'sku'=>'required',
+                'price'=>'required',
+                'sale_price'=>'required',
+                'stock'=>'required',
+                'size'=>'required',
+                'color'=>'required',
+                'weight'=>'required',
+                'barcode'=>'required',
         ]);
 
         Varient::create([
             'name' => $request->name,
-    'product_id' => $request->product_id,
+            'product_id' => $request->product_id,
+            'sku'=>$request->sku,
+            'price'=>$request->price,
+            'sale_price'=>$request->sale_price,
+            'stock'=>$request->stock,
+            'size'=>$request->size,
+            'color'=>$request->color,
+            'weight'=>$request->weight,
+            'barcode'=>$request->barcode,
         ]);
                 return redirect()->back();
 
@@ -78,12 +94,28 @@ class VarientController extends Controller
     {
      $request->validate([
             'name'=>'required',
-            'product_id'=>'required'
+            'product_id'=>'required',
+            'sku'=>'required',
+            'price'=>'required',
+            'sale_price'=>'required',
+            'stock'=>'required',
+            'size'=>'required',
+            'color'=>'required',
+            'weight'=>'required',
+            'barcode'=>'required',
         ]);
 
         $varient->update([
-            'name'=>$request->name,
-            'product_id'=>$request->product_id,
+             'name' => $request->name,
+            'product_id' => $request->product_id,
+            'sku'=>$request->sku,
+            'price'=>$request->price,
+            'sale_price'=>$request->sale_price,
+            'stock'=>$request->stock,
+            'size'=>$request->size,
+            'color'=>$request->color,
+            'weight'=>$request->weight,
+            'barcode'=>$request->barcode,
         ]);   
 
         return redirect()->back();
