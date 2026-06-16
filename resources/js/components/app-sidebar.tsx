@@ -110,7 +110,7 @@ const mainNavItems: NavItem[] = [
     children:[
         {
             title:'Customers',
-            href:dashboard(),
+            href:'/customer',
         },
         {
             title:'Quotations',

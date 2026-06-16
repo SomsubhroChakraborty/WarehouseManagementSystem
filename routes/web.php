@@ -10,6 +10,7 @@ use App\Http\Controllers\ProductCategoryController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\VarientController;
 use App\Http\Controllers\StockController;
+use App\Http\Controllers\CustomerController;
 
 Route::inertia('/', 'welcome')->name('home');
 
@@ -61,6 +62,11 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::post('/stock',[StockController::class, 'store'])->name('stock.store');
     Route::put('/stock/{stock}',[StockController::class, 'update'])->name('stock.update');
     Route::delete('/stock/{stock}',[StockController::class, 'destroy'])->name('stock.delete');
+
+    Route::get('/customer',[CustomerController::class, 'index'])->name('customer.index');
+    Route::post('/customer',[CustomerController::class, 'store'])->name('customer.store');
+    Route::put('/customer/{customer}',[CustomerController::class, 'update'])->name('customer.update');
+    Route::delete('/customer/{customer}',[CustomerController::class, 'destroy'])->name('customer.destroy');
 });
 
 require __DIR__.'/settings.php';

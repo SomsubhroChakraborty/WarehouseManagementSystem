@@ -112,7 +112,7 @@ export default function Brand({ brands = [], search = '' }) {
                         </label>
 
                         <Input
-                            placeholder="Search brand..."
+                            placeholder="Search Brands..."
                             value={data.search}
                             onChange={(e) =>
                                 setData('search', e.target.value)
