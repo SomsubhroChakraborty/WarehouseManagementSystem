@@ -48,18 +48,18 @@ const mainNavItems: NavItem[] = [
             title:'Varient',
             href:'/varient',
         },
-        {
-            title:'Units',
-            href:dashboard(),
-        },
+        // {
+        //     title:'Units',
+        //     href:dashboard(),
+        // },
         
-        {
-            title:'Product Type',
-            href:dashboard(),
-        },
+        // {
+        //     title:'Product Type',
+        //     href:dashboard(),
+        // },
         {
             title:'Stock Adjustment',
-            href:dashboard(),
+            href:'/stock',
         },
     
         

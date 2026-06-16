@@ -39,7 +39,7 @@ export default function Varient({
         sku: '',
         price: '',
         sale_price: '',
-        stock: '',
+        
         size: '',
         color: '',
         weight: '',
@@ -77,7 +77,6 @@ export default function Varient({
             sku: varient.sku ?? '',
             price: varient.price ?? '',
             sale_price: varient.sale_price ?? '',
-            stock: varient.stock ?? '',
             size: varient.size ?? '',
             color: varient.color ?? '',
             weight: varient.weight ?? '',
@@ -242,12 +241,7 @@ export default function Varient({
                             </div>
 
                             <div className="grid grid-cols-2 gap-4">
-                                <Input
-                                    type="number"
-                                    placeholder="Stock"
-                                    value={data.stock ?? ''}
-                                    onChange={(e) => setData('stock', e.target.value)}
-                                />
+                                
                                 <Input
                                     placeholder="Size"
                                     value={data.size ?? ''}

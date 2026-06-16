@@ -48,11 +48,10 @@ class VarientController extends Controller
              'sku'=>'required',
                 'price'=>'required',
                 'sale_price'=>'required',
-                'stock'=>'required',
-                'size'=>'required',
-                'color'=>'required',
-                'weight'=>'required',
-                'barcode'=>'required',
+                'size'=>'nullable',
+                'color'=>'nullable',
+                'weight'=>'nullable',
+                'barcode'=>'nullable',
         ]);
 
         Varient::create([
@@ -61,7 +60,6 @@ class VarientController extends Controller
             'sku'=>$request->sku,
             'price'=>$request->price,
             'sale_price'=>$request->sale_price,
-            'stock'=>$request->stock,
             'size'=>$request->size,
             'color'=>$request->color,
             'weight'=>$request->weight,
@@ -98,11 +96,10 @@ class VarientController extends Controller
             'sku'=>'required',
             'price'=>'required',
             'sale_price'=>'required',
-            'stock'=>'required',
-            'size'=>'required',
-            'color'=>'required',
-            'weight'=>'required',
-            'barcode'=>'required',
+            'size'=>'nullable',
+            'color'=>'nullable',
+            'weight'=>'nullable',
+            'barcode'=>'nullable',
         ]);
 
         $varient->update([
@@ -111,7 +108,6 @@ class VarientController extends Controller
             'sku'=>$request->sku,
             'price'=>$request->price,
             'sale_price'=>$request->sale_price,
-            'stock'=>$request->stock,
             'size'=>$request->size,
             'color'=>$request->color,
             'weight'=>$request->weight,

@@ -9,6 +9,7 @@ use App\Http\Controllers\BrandController;
 use App\Http\Controllers\ProductCategoryController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\VarientController;
+use App\Http\Controllers\StockController;
 
 Route::inertia('/', 'welcome')->name('home');
 
@@ -55,6 +56,11 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::post('/varient',[VarientController::class, 'store'])->name('varient.store');
     Route::put('/varient/{varient}',[VarientController::class, 'update'])->name('varient.update');
     Route::delete('/varient/{varient}',[VarientController::class, 'destroy'])->name('varient.delete');
+
+    Route::get('/stock',[StockController::class, 'index'])->name('stock.index');
+    Route::post('/stock',[StockController::class, 'store'])->name('stock.store');
+    Route::put('/stock/{stock}',[StockController::class, 'update'])->name('stock.update');
+    Route::delete('/stock/{stock}',[StockController::class, 'destroy'])->name('stock.delete');
 });
 
 require __DIR__.'/settings.php';
