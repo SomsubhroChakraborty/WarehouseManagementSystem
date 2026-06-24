@@ -568,86 +568,101 @@ export default function Quotations({
                                 <th className="p-3">Date</th>
                                 <th className="p-3">Customer</th>
                                 <th className="p-3">Payment</th>
+                                <th className="p-3">Total Amount</th>
                                 <th className="p-3 text-right">Action</th>
                             </tr>
                         </thead>
 
-                        <tbody>
-                            {quotations.length === 0 ? (
-                                <tr>
-                                    <td
-                                        colSpan={5}
-                                        className="px-3 py-12 text-center"
-                                    >
-                                        <div className="flex flex-col items-center gap-2 text-slate-400">
-                                            <FileText className="h-8 w-8" />
-                                            <p className="text-sm font-medium text-slate-500">
-                                                No quotations yet
-                                            </p>
-                                            <p className="text-sm">
-                                                Click "Add Quotation" to
-                                                create your first one.
-                                            </p>
-                                        </div>
-                                    </td>
-                                </tr>
-                            ) : (
-                                quotations.map((quotation, index) => (
-                                    <tr
-                                        key={quotation.id}
-                                        className="border-b border-slate-100 text-sm text-slate-800 transition-colors last:border-b-0 hover:bg-slate-50"
-                                    >
-                                        <td className="p-3 text-slate-400">
-                                            {index + 1}
-                                        </td>
+                       <tbody>
+    {quotations.length === 0 ? (
+        <tr>
+            <td
+                colSpan={6}
+                className="px-3 py-12 text-center"
+            >
+                <div className="flex flex-col items-center gap-2 text-slate-400">
+                    <FileText className="h-8 w-8" />
+                    <p className="text-sm font-medium text-slate-500">
+                        No quotations yet
+                    </p>
+                    <p className="text-sm">
+                        Click "Add Quotation" to create your first one.
+                    </p>
+                </div>
+            </td>
+        </tr>
+    ) : (
+        quotations.map((quotation, index) => {
+            const totalAmount =
+                quotation.items?.reduce(
+                    (sum, item) =>
+                        sum +
+                        Number(item.quantity || 0) *
+                            Number(item.price || 0),
+                    0
+                ) || 0;
 
-                                        <td className="p-3">
-                                            {formatDate(quotation.date)}
-                                        </td>
+            return (
+                <tr
+                    key={quotation.id}
+                    className="border-b border-slate-100 text-sm text-slate-800 transition-colors last:border-b-0 hover:bg-slate-50"
+                >
+                    <td className="p-3 text-slate-400">
+                        {index + 1}
+                    </td>
 
-                                        <td className="p-3 font-medium text-slate-900">
-                                            {quotation.customer?.name ?? '—'}
-                                        </td>
+                    <td className="p-3">
+                        {formatDate(quotation.date)}
+                    </td>
 
-                                        <td className="p-3 text-slate-600">
-                                            {quotation.payment || '—'}
-                                        </td>
+                    <td className="p-3 font-medium text-slate-900">
+                        {quotation.customer?.name ?? '—'}
+                    </td>
 
-                                        <td className="p-3">
-                                            <div className="flex justify-end gap-2">
-                                                <Button
-                                                    size="sm"
-                                                    varient="outline"
-                                                    className="gap-1.5"
-                                                    onClick={() =>
-                                                        handleEdit(quotation)
-                                                    }
-                                                >
-                                                    <Pencil className="h-3.5 w-3.5" />
-                                                    Edit
-                                                </Button>
+                    <td className="p-3 text-slate-600">
+                        {quotation.payment || '—'}
+                    </td>
 
-                                                <Button
-                                                    size="sm"
-                                                    varient="destructive"
-                                                    className="gap-1.5"
-                                                    onClick={() => {
-                                                        setData(
-                                                            'id',
-                                                            quotation.id
-                                                        );
-                                                        setDeleteOpen(true);
-                                                    }}
-                                                >
-                                                    <Trash2 className="h-3.5 w-3.5" />
-                                                    Delete
-                                                </Button>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                ))
-                            )}
-                        </tbody>
+                    <td className="p-3 font-semibold">
+                        ₹ {totalAmount.toFixed(2)}
+                    </td>
+
+                    <td className="p-3">
+                        <div className="flex justify-end gap-2">
+                            <Button
+                                size="sm"
+                                variant="outline"
+                                className="gap-1.5 text-white"
+                                onClick={() =>
+                                    handleEdit(quotation)
+                                }
+                            >
+                                <Pencil className="h-3.5 w-3.5 text-white" />
+                                Edit
+                            </Button>
+
+                            <Button
+                                size="sm"
+                                variant="destructive"
+                                className="gap-1.5"
+                                onClick={() => {
+                                    setData(
+                                        'id',
+                                        quotation.id
+                                    );
+                                    setDeleteOpen(true);
+                                }}
+                            >
+                                <Trash2 className="h-3.5 w-3.5" />
+                                Delete
+                            </Button>
+                        </div>
+                    </td>
+                </tr>
+            );
+        })
+    )}
+</tbody>
                     </table>
                 </div>
 
