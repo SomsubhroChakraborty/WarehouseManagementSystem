@@ -39,7 +39,6 @@ export default function Varient({
         sku: '',
         price: '',
         sale_price: '',
-        
         size: '',
         color: '',
         weight: '',

@@ -114,7 +114,7 @@ const mainNavItems: NavItem[] = [
         },
         {
             title:'Quotations',
-            href:dashboard(),
+            href:'/quotations',
         },
         {
             title:'Invoices',

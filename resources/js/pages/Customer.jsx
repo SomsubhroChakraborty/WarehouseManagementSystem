@@ -290,7 +290,7 @@ export default function Customer({
                             <tr>
                                 <td
                                     colSpan={6}
-                                    className="text-center py-4"
+                                    className="text-center py-4 text-black"
                                 >
                                     No customers found.
                                 </td>

@@ -11,7 +11,7 @@ use App\Http\Controllers\ProductController;
 use App\Http\Controllers\VarientController;
 use App\Http\Controllers\StockController;
 use App\Http\Controllers\CustomerController;
-
+ use App\Http\Controllers\QuotationController;
 Route::inertia('/', 'welcome')->name('home');
 
 Route::middleware(['auth', 'verified'])->group(function () {
@@ -67,6 +67,11 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::post('/customer',[CustomerController::class, 'store'])->name('customer.store');
     Route::put('/customer/{customer}',[CustomerController::class, 'update'])->name('customer.update');
     Route::delete('/customer/{customer}',[CustomerController::class, 'destroy'])->name('customer.destroy');
+
+    Route::get('/quotations', [QuotationController::class, 'index'])->name('quotations.index');
+    Route::post('/quotations', [QuotationController::class, 'store'])->name('quotations.store');
+    Route::put('/quotations/{quotation}', [QuotationController::class, 'update'])->name('quotations.update');
+    Route::delete('/quotations/{quotation}', [QuotationController::class, 'destroy'])->name('quotations.destroy');
 });
 
 require __DIR__.'/settings.php';
