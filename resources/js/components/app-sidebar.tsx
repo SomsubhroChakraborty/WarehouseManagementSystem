@@ -118,7 +118,7 @@ const mainNavItems: NavItem[] = [
         },
         {
             title:'Invoices',
-            href:dashboard(),
+            href:'/invoices',
         },
         
     ]

@@ -11,7 +11,9 @@ use App\Http\Controllers\ProductController;
 use App\Http\Controllers\VarientController;
 use App\Http\Controllers\StockController;
 use App\Http\Controllers\CustomerController;
- use App\Http\Controllers\QuotationController;
+use App\Http\Controllers\QuotationController;
+use App\Http\Controllers\InvoiceController;
+
 Route::inertia('/', 'welcome')->name('home');
 
 Route::middleware(['auth', 'verified'])->group(function () {
@@ -72,6 +74,12 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::post('/quotations', [QuotationController::class, 'store'])->name('quotations.store');
     Route::put('/quotations/{quotation}', [QuotationController::class, 'update'])->name('quotations.update');
     Route::delete('/quotations/{quotation}', [QuotationController::class, 'destroy'])->name('quotations.destroy');
+
+    Route::get('/invoices',[InvoiceController::class, 'index'])->name('invoices.index');
+    Route::get('/invoices/{quotation}/preview',[InvoiceController::class, 'preview'])->name('invoices.preview');
+    Route::get('/invoices/{quotation}/download',[InvoiceController::class, 'download'])->name('invoices.download');
+    Route::put('/invoices/{quotation}/status',[InvoiceController::class, 'updateStatus']
+);
 });
 
 require __DIR__.'/settings.php';

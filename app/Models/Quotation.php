@@ -11,7 +11,8 @@ class Quotation extends Model
         'valid',
         'customer_id',
         'payment',
-        'note'
+        'note',
+        'payment_status'
     ];
 
     public function customer()
