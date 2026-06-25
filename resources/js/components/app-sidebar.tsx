@@ -131,7 +131,7 @@ const mainNavItems: NavItem[] = [
     children:[
         {
             title:'Suppliers',
-            href:dashboard(),
+            href:'/suppliers',
         },
         {
             title:'Purchases',

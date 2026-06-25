@@ -13,6 +13,7 @@ use App\Http\Controllers\StockController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\QuotationController;
 use App\Http\Controllers\InvoiceController;
+use App\Http\Controllers\SupplierController;
 
 Route::inertia('/', 'welcome')->name('home');
 
@@ -78,8 +79,13 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/invoices',[InvoiceController::class, 'index'])->name('invoices.index');
     Route::get('/invoices/{quotation}/preview',[InvoiceController::class, 'preview'])->name('invoices.preview');
     Route::get('/invoices/{quotation}/download',[InvoiceController::class, 'download'])->name('invoices.download');
-    Route::put('/invoices/{quotation}/status',[InvoiceController::class, 'updateStatus']
-);
+    Route::put('/invoices/{quotation}/status',[InvoiceController::class, 'updateStatus'])->name('invoice.status');
+
+    Route::get('/suppliers',[SupplierController::class , 'index'])->name('suppliers.index');
+    Route::post('/suppliers',[SupplierController::class , 'store'])->name('suppliers.store');
+    Route::put('/suppliers/{supplier}',[SupplierController::class , 'update'])->name('suppliers.update');
+    Route::delete('/suppliers/{supplier}',[SupplierController::class , 'destroy'])->name('suppliers.destroy');
+
 });
 
 require __DIR__.'/settings.php';
