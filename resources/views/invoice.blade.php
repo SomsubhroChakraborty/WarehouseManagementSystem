@@ -22,7 +22,7 @@
             display: flex;
             justify-content: space-between;
             padding: 14px 24px 10px;
-            background: #111827;
+            background: #404142;
             color: #fff;
         }
         .brand h1 { font-size: 22px; font-weight: bold; }
@@ -55,16 +55,22 @@
             color: #666;
             margin-bottom: 6px;
         }
+        .status{
+            display:flex;
+            flex-direction:row;
+        }
         .table-wrap {
             border: 1px solid #ddd;
             overflow: hidden;
             margin-bottom: 12px;
+            display:flex;
+            justify-content:flex-end;
         }
         table { width:100%; border-collapse:collapse; }
         thead th {
-            background: #111827;
+            background: #424346;
             color: white;
-            padding: 6px 10px;
+            padding: 6px 10px; 
             font-size: 10.5px;
             text-transform: uppercase;
         }
@@ -79,10 +85,11 @@
             width: 320px;
             border: 1px solid #ddd;
             font-size: 12px;
+            margin-left:auto;
         }
         .totals td { padding: 6px 12px; border-bottom:1px solid #eee; }
         .grand {
-            background: #111827;
+            background: #3d3d3e;
             color: white;
             font-weight: bold;
         }
@@ -108,7 +115,7 @@
                 @isset($company)<p>{{ $company->name ?? '' }}</p>@endisset
             </div>
             <div class="meta">
-                <div class="badge">{{ $quotation->payment_status ?? 'Pending' }}</div>
+            <div class="badge">{{ $quotation->payment_status ?? 'Pending' }}</div></div>
                 <p><strong>Invoice #:</strong>
            INV-{{ str_pad($quotation->id, 5, '0', STR_PAD_LEFT) }} | 
                    {{ \Carbon\Carbon::parse($quotation->date)->format('d M Y') }}</p>
@@ -162,7 +169,7 @@
                 $grandTotal = $subtotal + $tax - $discount;
             @endphp
 
-            <div class="totals-wrap">
+            <div class="totals-wrap ">
                 <div class="totals">
                     <table>
                         <tr><td>Subtotal</td><td class="num">{{ number_format($subtotal, 2) }}</td></tr>
