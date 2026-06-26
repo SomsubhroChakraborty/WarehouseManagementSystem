@@ -43,11 +43,12 @@
             margin-bottom: 14px;
         }
         .card {
-            background: #f9fafb;
-            border: 1px solid #ddd;
-            border-radius: 6px;
-            padding: 10px;
-            font-size: 11.5px;
+           background: #f9fafb;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    padding: 15px;
+    min-height: 90px;
+    font-size: 13px;
         }
         .card h3 {
             font-size: 10px;
