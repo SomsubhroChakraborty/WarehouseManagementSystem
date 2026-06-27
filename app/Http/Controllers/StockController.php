@@ -16,7 +16,7 @@ class StockController extends Controller
     {
         $search = $request->search;
 
-        $stocks = Stock::with('varient')
+        $stocks = Stock::with('varient.product')
             ->when($search, function ($query) use ($search) {
                 $query->whereHas('varient', function ($q) use ($search) {
                     $q->where('name', 'like', "%{$search}%");
