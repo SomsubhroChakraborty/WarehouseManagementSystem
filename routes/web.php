@@ -14,6 +14,7 @@ use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\QuotationController;
 use App\Http\Controllers\InvoiceController;
 use App\Http\Controllers\SupplierController;
+use App\Http\Controllers\PurchaseController;
 
 Route::inertia('/', 'welcome')->name('home');
 
@@ -85,6 +86,18 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::post('/suppliers',[SupplierController::class , 'store'])->name('suppliers.store');
     Route::put('/suppliers/{supplier}',[SupplierController::class , 'update'])->name('suppliers.update');
     Route::delete('/suppliers/{supplier}',[SupplierController::class , 'destroy'])->name('suppliers.destroy');
+
+    Route::get('/purchases', [PurchaseController::class, 'index'])
+    ->name('purchases.index');
+
+Route::post('/purchases', [PurchaseController::class, 'store'])
+    ->name('purchases.store');
+
+Route::put('/purchases/{purchase}', [PurchaseController::class, 'update'])
+    ->name('purchases.update');
+
+Route::delete('/purchases/{purchase}', [PurchaseController::class, 'destroy'])
+    ->name('purchases.destroy');
 
 });
 

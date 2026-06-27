@@ -135,7 +135,7 @@ const mainNavItems: NavItem[] = [
         },
         {
             title:'Purchases',
-            href:dashboard(),
+            href:'/purchases',
         },
         
     ]

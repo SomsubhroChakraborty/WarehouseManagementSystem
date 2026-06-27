@@ -20,6 +20,10 @@ class Product extends Model
     public function varients(){
         return $this->hasMany(Varient::class);
     }
+    public function purchaseItems()
+{
+    return $this->hasMany(PurchaseItem::class);
+}
 
 
 }
