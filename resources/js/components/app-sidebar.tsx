@@ -91,8 +91,7 @@ const mainNavItems: NavItem[] = [
         icon: Settings,
         children: [
             { title: 'Staff', href: '/staff' },
-            { title: 'Packers', href: dashboard() },
-            { title: 'Drivers', href: dashboard() },
+           
         ],
     },
 ];
