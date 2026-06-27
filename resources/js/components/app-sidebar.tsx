@@ -90,7 +90,7 @@ const mainNavItems: NavItem[] = [
         href: dashboard(),
         icon: Settings,
         children: [
-            { title: 'Staff', href: dashboard() },
+            { title: 'Staff', href: '/staff' },
             { title: 'Packers', href: dashboard() },
             { title: 'Drivers', href: dashboard() },
         ],

@@ -15,6 +15,7 @@ use App\Http\Controllers\QuotationController;
 use App\Http\Controllers\InvoiceController;
 use App\Http\Controllers\SupplierController;
 use App\Http\Controllers\PurchaseController;
+use App\Http\Controllers\StaffController;
 
 Route::inertia('/', 'welcome')->name('home');
 
@@ -87,17 +88,15 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::put('/suppliers/{supplier}',[SupplierController::class , 'update'])->name('suppliers.update');
     Route::delete('/suppliers/{supplier}',[SupplierController::class , 'destroy'])->name('suppliers.destroy');
 
-    Route::get('/purchases', [PurchaseController::class, 'index'])
-    ->name('purchases.index');
+    Route::get('/purchases', [PurchaseController::class, 'index'])->name('purchases.index');
+    Route::post('/purchases', [PurchaseController::class, 'store'])->name('purchases.store');
+    Route::put('/purchases/{purchase}', [PurchaseController::class, 'update'])->name('purchases.update');
+    Route::delete('/purchases/{purchase}', [PurchaseController::class, 'destroy'])->name('purchases.destroy');
 
-Route::post('/purchases', [PurchaseController::class, 'store'])
-    ->name('purchases.store');
-
-Route::put('/purchases/{purchase}', [PurchaseController::class, 'update'])
-    ->name('purchases.update');
-
-Route::delete('/purchases/{purchase}', [PurchaseController::class, 'destroy'])
-    ->name('purchases.destroy');
+    Route::get('/staff',[StaffController::class,'index'])->name('staff.index');
+    Route::post('/staff',[StaffController::class,'store'])->name('staff.store');
+    Route::put('/staff/{staff}',[StaffController::class,'update'])->name('staff.update');
+    Route::delete('/staff/{staff}',[StaffController::class,'destroy'])->name('staff.destroy');
 
 });
 
