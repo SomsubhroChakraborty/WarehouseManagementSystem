@@ -1,5 +1,16 @@
 import { Link } from '@inertiajs/react';
- import { BookOpen, FolderGit2, LayoutGrid } from 'lucide-react';
+import {
+    LayoutGrid,
+    Package,
+    DollarSign,
+    Users,
+    Truck,
+    FileText,
+    BarChart3,
+    Settings,
+    UserCog,
+} from 'lucide-react';
+
 import AppLogo from '@/components/app-logo';
 import { NavFooter } from '@/components/nav-footer';
 import { NavMain } from '@/components/nav-main';
@@ -15,7 +26,7 @@ import {
 } from '@/components/ui/sidebar';
 import { dashboard } from '@/routes';
 import type { NavItem } from '@/types';
-// import { route } from 'ziggy-js';
+
 const mainNavItems: NavItem[] = [
     {
         title: 'Dashboard',
@@ -24,161 +35,70 @@ const mainNavItems: NavItem[] = [
     },
     {
         title: 'POS',
-        href: dashboard(),
-        icon: LayoutGrid,
+        href: dashboard(), // Update this when you have POS route
+        icon: FileText, // Receipt / POS icon
     },
-  {
-    title: 'Inventory',
-    href: dashboard(),
-    icon: LayoutGrid,
-     children:[
-        {
-            title:'Brand',
-            href:'/brand',
-        },
-        {
-            title:'Category',
-            href:'/productCategory',
-        },
-        {
-            title:'Product',
-            href:'/product',
-        },
-        {
-            title:'Varient',
-            href:'/varient',
-        },
-        // {
-        //     title:'Units',
-        //     href:dashboard(),
-        // },
-        
-        // {
-        //     title:'Product Type',
-        //     href:dashboard(),
-        // },
-        {
-            title:'Stock Adjustment',
-            href:'/stock',
-        },
-    
-        
-    ]
-   
-},
-{
-    title: 'Finance',
-    href: dashboard(),
-    icon: LayoutGrid,
-    children:[
-        {
-            title:'Expense list',
-            href:'/expense/list',
-        },
-        {
-            title:'Expense Category',
-             href:'/expense/category',
-        },
-        {
-            title:'Bank',
-            href:'/bank',
-        },
-        {
-            title:'Ledger',
-            href:'/ledger',
-        },
-        // {
-        //     title:'Taxes',
-        //     href:dashboard(),
-        // },
-        // {
-        //     title:'Fees Config',
-        //     href:dashboard(),
-        // },
-        // {
-        //     title:'Payment Methods',
-        //     href:dashboard(),
-        // },
-        
-    ]
-  
-},
-{
-    title: 'Customer & Sales',
-    href: dashboard(),
-    icon: LayoutGrid,
-    children:[
-        {
-            title:'Customers',
-            href:'/customer',
-        },
-        {
-            title:'Quotations',
-            href:'/quotations',
-        },
-        {
-            title:'Invoices',
-            href:'/invoices',
-        },
-        
-    ]
-  
-},
-{
-    title: 'Suppliers',
-    href: dashboard(),
-    icon: LayoutGrid,
-    children:[
-        {
-            title:'Suppliers',
-            href:'/suppliers',
-        },
-        {
-            title:'Purchases',
-            href:'/purchases',
-        },
-        
-    ]
-  
-},
-{
-    title: 'Reports',
-    href: dashboard(),
-    icon: LayoutGrid,
-  
-},
-{
-    title: 'Administration',
-    href:dashboard(),
-    children:[
-        {
-            title: 'Staff',
-             href:dashboard(),
-        },
-        {
-            title: 'Packers',
-             href:dashboard(),
-        },
-        {
-            title: 'Drivers',
-             href:dashboard(),
-        }
-    ]
-},
-
+    {
+        title: 'Inventory',
+        href: dashboard(),
+        icon: Package,
+        children: [
+            { title: 'Brand', href: '/brand' },
+            { title: 'Category', href: '/productCategory' },
+            { title: 'Product', href: '/product' },
+            { title: 'Varient', href: '/varient' },
+            { title: 'Stock Adjustment', href: '/stock' },
+        ],
+    },
+    {
+        title: 'Finance',
+        href: dashboard(),
+        icon: DollarSign,
+        children: [
+            { title: 'Expense list', href: '/expense/list' },
+            { title: 'Expense Category', href: '/expense/category' },
+            { title: 'Bank', href: '/bank' },
+            { title: 'Ledger', href: '/ledger' },
+        ],
+    },
+    {
+        title: 'Customer & Sales',
+        href: dashboard(),
+        icon: Users,
+        children: [
+            { title: 'Customers', href: '/customer' },
+            { title: 'Quotations', href: '/quotations' },
+            { title: 'Invoices', href: '/invoices' },
+        ],
+    },
+    {
+        title: 'Suppliers',
+        href: dashboard(),
+        icon: Truck,
+        children: [
+            { title: 'Suppliers', href: '/suppliers' },
+            { title: 'Purchases', href: '/purchases' },
+        ],
+    },
+    {
+        title: 'Reports',
+        href: dashboard(),
+        icon: BarChart3,
+    },
+    {
+        title: 'Administration',
+        href: dashboard(),
+        icon: Settings,
+        children: [
+            { title: 'Staff', href: dashboard() },
+            { title: 'Packers', href: dashboard() },
+            { title: 'Drivers', href: dashboard() },
+        ],
+    },
 ];
 
 const footerNavItems: NavItem[] = [
-    // {
-    //     title: 'Repository',
-    //     href: 'https://github.com/laravel/react-starter-kit',
-    //     icon: FolderGit2,
-    // },
-    // {
-    //     title: 'Documentation',
-    //     href: 'https://laravel.com/docs/starter-kits#react',
-    //     icon: BookOpen,
-    // },
+    // Add footer items here if needed
 ];
 
 export function AppSidebar() {
