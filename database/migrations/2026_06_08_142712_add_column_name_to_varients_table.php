@@ -32,7 +32,6 @@ return new class extends Migration
                 'sku',
                 'price',
                 'sale_price',
-                'stock',
                 'size',
                 'color',
                 'weight',

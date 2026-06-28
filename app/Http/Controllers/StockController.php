@@ -42,49 +42,39 @@ class StockController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'varient_id' => 'required',
-            'quantity' => 'required',
-            'stock_received_at'=>'required'
+            'varient_id' => 'required|exists:varients,id',
+            'quantity' => 'required|integer|min:1',
+            'operation' => 'required|in:add,remove',
+            'stock_received_at' => 'required',
         ]);
 
+        $variant = Varient::findOrFail($request->varient_id);
+
+        // Prevent negative stock
+        if (
+            $request->operation == 'remove' &&
+            $variant->varient_qty < $request->quantity
+        ) {
+            return back()->withErrors([
+                'quantity' => 'Not enough stock available.'
+            ]);
+        }
+
+        // Save stock history
         Stock::create([
             'varient_id' => $request->varient_id,
             'quantity' => $request->quantity,
-            'stock_received_at'=>$request->stock_received_at
+            'operation' => $request->operation,
+            'stock_received_at' => $request->stock_received_at,
         ]);
 
-        return redirect()->back()->with('success', 'Stock created successfully.');
-    }
-
-    /**
-     * Update the specified resource.
-     */
-    public function update(Request $request, Stock $stock)
-    {
-        $request->validate([
-            'varient_id' => 'required',
-            'quantity' => 'required',
-            'stock_received_at'=>'required'
-
-        ]);
-
-        $stock->update([
-            'varient_id' => $request->varient_id,
-            'quantity' => $request->quantity,
-            'stock_received_at'=>$request->stock_received_at
-
-        ]);
+        // Update current stock
+        if ($request->operation == 'add') {
+            $variant->increment('varient_qty', $request->quantity);
+        } else {
+            $variant->decrement('varient_qty', $request->quantity);
+        }
 
         return redirect()->back()->with('success', 'Stock updated successfully.');
-    }
-
-    /**
-     * Remove the specified resource.
-     */
-    public function destroy(Stock $stock)
-    {
-        $stock->delete();
-
-        return redirect()->back()->with('success', 'Stock deleted successfully.');
     }
 }

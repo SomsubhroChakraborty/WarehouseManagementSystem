@@ -16,25 +16,13 @@ import {
 
 export default function Stock({ stocks = [], varients = [] }) {
     const [open, setOpen] = useState(false);
-    const [deleteOpen, setDeleteOpen] = useState(false);
 
-    const {
-        data,
-        setData,
-        post,
-        put,
-        delete: destroy, // Extracted destroy from useForm
-        processing,
-        errors,
-        reset,
-    } = useForm({
-        id: '', // Track ID for editing transitions
+    const { data, setData, post, processing, errors, reset } = useForm({
         product_id: '',
         varient_id: '',
         quantity: '',
         operation: 'add',
         stock_received_at: '',
-
     });
 
     // Extract unique products out of our varients data prop
@@ -50,47 +38,11 @@ export default function Stock({ stocks = [], varients = [] }) {
     const handleSubmit = (e) => {
         e.preventDefault();
 
-        if (data.id) {
-            // Dynamic routing switch to update endpoint
-            put(`/stock/${data.id}`, {
-                preserveScroll: true,
-                onSuccess: () => {
-                    reset();
-                    setOpen(false);
-                },
-            });
-        } else {
-            post('/stock', {
-                preserveScroll: true,
-                onSuccess: () => {
-                    reset();
-                    setOpen(false);
-                },
-            });
-        }
-    };
-
-    const handleEdit = (stock) => {
-        setData({
-            id: stock.id,
-            product_id: stock.varient?.product_id || '',
-            varient_id: stock.varient_id,
-            quantity: stock.quantity,
-            operation: 'add', 
-            stock_received_at: stock.stock_received_at
-            ? stock.stock_received_at.slice(0, 16)
-            : '',
-        });
-
-        setOpen(true);
-    };
-
-    const handleDelete = () => {
-        destroy(`/stock/${data.id}`, {
+        post('/stock', {
             preserveScroll: true,
             onSuccess: () => {
-                setDeleteOpen(false);
                 reset();
+                setOpen(false);
             },
         });
     };
@@ -105,15 +57,13 @@ export default function Stock({ stocks = [], varients = [] }) {
                 <Dialog open={open} onOpenChange={setOpen}>
                     <DialogTrigger asChild>
                         <Button onClick={() => reset()}>
-                            Add Stock
+                            Add Stock Transaction
                         </Button>
                     </DialogTrigger>
 
                     <DialogContent>
                         <DialogHeader>
-                            <DialogTitle>
-                                {data.id ? 'Edit Stock' : 'Create Stock'}
-                            </DialogTitle>
+                            <DialogTitle>New Stock Transaction</DialogTitle>
 
                             <DialogDescription>
                                 Enter stock information.
@@ -205,27 +155,27 @@ export default function Stock({ stocks = [], varients = [] }) {
                                         {errors.quantity}
                                     </p>
                                 )}
-                                
                             </div>
+
                             <div>
-    <label className="mb-2 block text-sm font-medium">
-        Stock Received Date & Time
-    </label>
+                                <label className="mb-2 block text-sm font-medium">
+                                    Stock Received Date & Time
+                                </label>
 
-    <Input
-        type="datetime-local"
-        value={data.stock_received_at}
-        onChange={(e) =>
-            setData('stock_received_at', e.target.value)
-        }
-    />
+                                <Input
+                                    type="datetime-local"
+                                    value={data.stock_received_at}
+                                    onChange={(e) =>
+                                        setData('stock_received_at', e.target.value)
+                                    }
+                                />
 
-    {errors.stock_received_at && (
-        <p className="mt-1 text-sm text-red-500">
-            {errors.stock_received_at}
-        </p>
-    )}
-</div>
+                                {errors.stock_received_at && (
+                                    <p className="mt-1 text-sm text-red-500">
+                                        {errors.stock_received_at}
+                                    </p>
+                                )}
+                            </div>
 
                             <DialogFooter>
                                 <Button
@@ -237,7 +187,7 @@ export default function Stock({ stocks = [], varients = [] }) {
                                 </Button>
 
                                 <Button type="submit" disabled={processing}>
-                                    {processing ? 'Saving...' : 'Save Adjustment'}
+                                    {processing ? 'Saving...' : 'Save Transaction'}
                                 </Button>
                             </DialogFooter>
                         </form>
@@ -255,9 +205,9 @@ export default function Stock({ stocks = [], varients = [] }) {
                             <th className="px-4 py-3">SKU</th>
                             <th className="px-4 py-3">Color</th>
                             <th className="px-4 py-3">Size</th>
+                            <th className="px-4 py-3">Operation</th>
                             <th className="px-4 py-3">Quantity</th>
                             <th className="px-4 py-3">Received At</th>
-                            <th className="px-4 py-3 text-center">Action</th>
                         </tr>
                     </thead>
 
@@ -281,39 +231,28 @@ export default function Stock({ stocks = [], varients = [] }) {
                                     <td className="px-4 py-3 text-black">
                                         {stock.varient?.size || 'N/A'}
                                     </td>
+                                    <td className="px-4 py-3">
+                                        <span
+                                            className={
+                                                stock.operation === 'add'
+                                                    ? 'text-green-600 font-medium'
+                                                    : 'text-red-600 font-medium'
+                                            }
+                                        >
+                                            {stock.operation === 'add' ? 'Add' : 'Remove'}
+                                        </span>
+                                    </td>
                                     <td className="px-4 py-3 text-black">{stock.quantity}</td>
                                     <td className="px-4 py-3 text-black">
-    {stock.stock_received_at
-        ? new Date(stock.stock_received_at).toLocaleString()
-        : 'N/A'}
-</td>
-                                    <td className="px-4 py-3">
-                                        <div className="flex justify-center gap-2">
-                                            <Button
-                                                size="sm"
-                                                variant="outline"
-                                                onClick={() => handleEdit(stock)}
-                                            >
-                                                Edit
-                                            </Button>
-
-                                            <Button
-                                                size="sm"
-                                                variant="destructive"
-                                                onClick={() => {
-                                                    setData('id', stock.id);
-                                                    setDeleteOpen(true);
-                                                }}
-                                            >
-                                                Delete
-                                            </Button>
-                                        </div>
+                                        {stock.stock_received_at
+                                            ? new Date(stock.stock_received_at).toLocaleString()
+                                            : 'N/A'}
                                     </td>
                                 </tr>
                             ))
                         ) : (
                             <tr>
-                                <td colSpan="8" className="py-6 text-center text-black">
+                                <td colSpan="9" className="py-6 text-center text-black">
                                     No stock found.
                                 </td>
                             </tr>
@@ -321,30 +260,6 @@ export default function Stock({ stocks = [], varients = [] }) {
                     </tbody>
                 </table>
             </div>
-
-            <Dialog open={deleteOpen} onOpenChange={setDeleteOpen}>
-                <DialogContent>
-                    <DialogHeader>
-                        <DialogTitle>Delete Stock</DialogTitle>
-                        <DialogDescription>
-                            This action cannot be undone.
-                        </DialogDescription>
-                    </DialogHeader>
-
-                    <DialogFooter>
-                        <Button
-                            variant="outline"
-                            onClick={() => setDeleteOpen(false)}
-                        >
-                            Cancel
-                        </Button>
-
-                        <Button variant="destructive" onClick={handleDelete}>
-                            Delete
-                        </Button>
-                    </DialogFooter>
-                </DialogContent>
-            </Dialog>
         </div>
     );
 }
