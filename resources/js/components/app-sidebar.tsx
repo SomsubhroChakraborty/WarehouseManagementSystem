@@ -62,11 +62,11 @@ const mainNavItems: NavItem[] = [
         ],
     },
     {
-        title: 'Customer & Sales',
+        title: 'Marchent & Sales',
         href: dashboard(),
         icon: Users,
         children: [
-            { title: 'Customers', href: '/customer' },
+            { title: 'Marchents', href: '/customer' },
             { title: 'Quotations', href: '/quotations' },
             { title: 'Invoices', href: '/invoices' },
         ],
