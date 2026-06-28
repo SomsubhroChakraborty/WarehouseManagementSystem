@@ -35,7 +35,7 @@ const mainNavItems: NavItem[] = [
     },
     {
         title: 'POS',
-        href: dashboard(), // Update this when you have POS route
+        href: '/pos', // Update this when you have POS route
         icon: FileText, // Receipt / POS icon
     },
     {

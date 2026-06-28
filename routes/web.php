@@ -16,6 +16,7 @@ use App\Http\Controllers\InvoiceController;
 use App\Http\Controllers\SupplierController;
 use App\Http\Controllers\PurchaseController;
 use App\Http\Controllers\StaffController;
+use App\Http\Controllers\PosSaleController;
 
 Route::inertia('/', 'welcome')->name('home');
 
@@ -97,6 +98,9 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::post('/staff',[StaffController::class,'store'])->name('staff.store');
     Route::put('/staff/{staff}',[StaffController::class,'update'])->name('staff.update');
     Route::delete('/staff/{staff}',[StaffController::class,'destroy'])->name('staff.destroy');
+
+    Route::get('/pos', [PosSaleController::class, 'index'])->name('pos.index');
+    Route::post('/pos', [PosSaleController::class, 'store'])->name('pos.store');
 
 });
 

@@ -57,7 +57,7 @@ export default function Stock({ stocks = [], varients = [] }) {
                 <Dialog open={open} onOpenChange={setOpen}>
                     <DialogTrigger asChild>
                         <Button onClick={() => reset()}>
-                            Add Stock Transaction
+                         ⇌ Stock Transaction
                         </Button>
                     </DialogTrigger>
 
