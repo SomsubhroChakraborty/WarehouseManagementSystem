@@ -97,4 +97,18 @@ class PosSaleController extends Controller
 
         return redirect()->back()->with('success', 'Sale completed successfully.');
     }
+    public function invoice(PosSale $sale)
+    {
+        // Load necessary relationships
+        $sale->load([
+            // 'customer', 
+            'items.product', 
+            'items.varient.product'
+        ]);
+
+        // Get company info (adjust according to your setup)
+     // $company = \App\Models\Company::first(); // or use config/settings
+
+        return view('posinvoice', compact('sale'));
+    }
 }

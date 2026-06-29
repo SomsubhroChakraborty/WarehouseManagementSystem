@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Invoice #{{ $quotation->id ?? '' }}</title>
+    <title>Marchent Invoice #{{ $quotation->id ?? '' }}</title>
     <style>
         * { margin:0; padding:0; box-sizing:border-box; }
         body {
@@ -112,7 +112,7 @@
     <div class="invoice">
         <div class="header">
             <div class="brand">
-                <h1>INVOICE</h1>
+                <h1>MARCHENT INVOICE</h1>
                 @isset($company)<p>{{ $company->name ?? '' }}</p>@endisset
             </div>
             <div class="meta">

@@ -102,7 +102,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
     Route::get('/pos', [PosSaleController::class, 'index'])->name('pos.index');
     Route::post('/pos', [PosSaleController::class, 'store'])->name('pos.store');
-
+    Route::get('/pos/invoice/{sale}', [PosSaleController::class, 'invoice'])->name('pos.invoice');
+    
     Route::get('/pos-sales', [ReportController::class, 'posSales'])->name('reports.pos-sales');
     Route::get('/customer-sales', [ReportController::class, 'customerSales'])->name('reports.customer-sales');
     Route::get('/purchases-report', [ReportController::class, 'purchases'])->name('reports.purchases');
