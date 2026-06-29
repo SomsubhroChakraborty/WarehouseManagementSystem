@@ -17,6 +17,7 @@ use App\Http\Controllers\SupplierController;
 use App\Http\Controllers\PurchaseController;
 use App\Http\Controllers\StaffController;
 use App\Http\Controllers\PosSaleController;
+use App\Http\Controllers\ReportController;
 
 Route::inertia('/', 'welcome')->name('home');
 
@@ -101,6 +102,10 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
     Route::get('/pos', [PosSaleController::class, 'index'])->name('pos.index');
     Route::post('/pos', [PosSaleController::class, 'store'])->name('pos.store');
+
+    Route::get('/pos-sales', [ReportController::class, 'posSales'])->name('reports.pos-sales');
+    Route::get('/customer-sales', [ReportController::class, 'customerSales'])->name('reports.customer-sales');
+    Route::get('/purchases-report', [ReportController::class, 'purchases'])->name('reports.purchases');
 
 });
 

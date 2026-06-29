@@ -84,6 +84,23 @@ const mainNavItems: NavItem[] = [
         title: 'Reports',
         href: dashboard(),
         icon: BarChart3,
+        children:[
+            {
+        title: 'PosReport',
+        href: '/pos-sales', // Update this when you have POS route
+        icon: FileText, // Receipt / POS icon
+    },
+            {
+        title: 'CustomerReport',
+        href: '/customer-sales', // Update this when you have POS route
+        icon: FileText, // Receipt / POS icon
+    },
+            {
+        title: 'Supplier Report',
+        href: '/purchases-report', // Update this when you have POS route
+        icon: FileText, // Receipt / POS icon
+    },
+        ]
     },
     {
         title: 'Administration',

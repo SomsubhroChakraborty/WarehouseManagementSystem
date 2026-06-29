@@ -119,9 +119,7 @@ class PurchaseController extends Controller
                     'total' => $item['total'],
                 ]);
 
-                if ($purchase->status === 'Received') {
-                    $varient->increment('stock', $item['quantity']);
-                }
+                
             }
         });
 
@@ -158,11 +156,7 @@ class PurchaseController extends Controller
         DB::transaction(function () use ($purchase, $validated) {
 
             // Reverse previous stock
-            if ($purchase->status === 'Received') {
-                foreach ($purchase->items as $oldItem) {
-                    $oldItem->varient->decrement('stock', $oldItem->quantity);
-                }
-            }
+          
 
             // Delete old items
             $purchase->items()->delete();
@@ -199,9 +193,7 @@ class PurchaseController extends Controller
                     'total' => $item['total'],
                 ]);
 
-                if ($purchase->status === 'Received') {
-                    $varient->increment('stock', $item['quantity']);
-                }
+               
             }
         });
 
