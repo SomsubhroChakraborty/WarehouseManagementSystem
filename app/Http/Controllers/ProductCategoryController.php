@@ -61,10 +61,18 @@ class ProductCategoryController extends Controller
         return redirect()->route('productcategory.index');
     }
 
-    public function destroy(ProductCategory $productCategory)
-    {
-    $productCategory->delete();
-                return redirect()->route('productcategory.index');
-
+   public function destroy(ProductCategory $productCategory)
+{
+    if ($productCategory->products()->exists()) {
+        return redirect()
+            ->route('productcategory.index')
+            ->with('error', 'This category contains products and cannot be deleted.');
     }
+
+    $productCategory->delete();
+
+    return redirect()
+        ->route('productcategory.index')
+        ->with('success', 'Category deleted successfully.');
+}
 }
