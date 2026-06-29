@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ExpenseCategoryController;
 use App\Http\Controllers\ExpensesController;
 use App\Http\Controllers\BankController;
@@ -22,8 +23,7 @@ use App\Http\Controllers\ReportController;
 Route::inertia('/', 'welcome')->name('home');
 
 Route::middleware(['auth', 'verified'])->group(function () {
-    Route::inertia('dashboard', 'dashboard')->name('dashboard');
-
+Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
     Route::get('/expense/category', [ExpenseCategoryController::class, 'index'])->name('expense.category');
     Route::post('/expense/category', [ExpenseCategoryController::class, 'store'])->name('expense.category.store');
     Route::put('/expense/category/{category}', [ExpenseCategoryController::class, 'update'])->name('expense.category.update');
